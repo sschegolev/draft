@@ -13,26 +13,42 @@
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+body {
+  padding: 20px;
+}
+
+.player-info, .title {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-between;
+  height: 20px;
+  max-width: 450px;
 }
 
-.App-link {
-  color: #61dafb;
+.title {
+  margin-bottom: 12px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.team, .individuals {
+  margin-left: 20px;
+}
+
+.team:first-child,
+.individuals:first-child {
+  margin-left: 0;
+}
+
+.root {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.points {
+  width: 50px;
+  margin-left: 20px;
+}
+
+.team-name {
+  width: 130px;
+  margin-left: 20px;
+  text-align: center;
 }
