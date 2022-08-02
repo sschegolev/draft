@@ -15,9 +15,11 @@ let d = [];
 let m = [];
 let f = [];
 
+let initialunavailable = [];
+
 export const Draft = memo(({ players, draft, onPlayerSelected }) => {
   const [byRound, setByRound] = useState({});
-  const [unavailable, setUnavailable] = useState([]);
+  const [unavailable, setUnavailable] = useState(initialunavailable);
   const [selectedGoalkeepers, setGoalkeepers] = useState(gk);
   const [selectedMidfielders, setMidfielders] = useState(m);
   const [selectedDefenders, setDefenders] = useState(d);
@@ -88,6 +90,7 @@ export const Draft = memo(({ players, draft, onPlayerSelected }) => {
       const result = [...unavailable, playerId];
 
       setUnavailable(result);
+      initialunavailable = result;
     },
     [unavailable]
   );
@@ -97,6 +100,7 @@ export const Draft = memo(({ players, draft, onPlayerSelected }) => {
       const result = unavailable.filter((id) => id !== playerId);
 
       setUnavailable(result);
+      initialunavailable = result;
     },
     [unavailable]
   );
