@@ -30,7 +30,7 @@ export const Individuals = memo(({ players, draft, onPlayerSelected }) => {
       )
       .filter((player) =>
         isChosenHidden
-          ? !Object.keys(draft).find((id) => id === player.id)
+          ? !Object.keys(draft).find((id) => +id === player.id)
           : true
       )
       .filter((player) => player.name.toLowerCase().includes(searchResult));
