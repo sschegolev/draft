@@ -10,20 +10,39 @@ const getPlayersData = (players, currentRoundPlayers, unavailable) => {
   );
 };
 
-let gk = [];
-let d = [];
-let m = [];
-let f = [];
-
-let initialunavailable = [];
-
 export const Draft = memo(({ players, draft, onPlayerSelected }) => {
   const [byRound, setByRound] = useState({});
-  const [unavailable, setUnavailable] = useState(initialunavailable);
-  const [selectedGoalkeepers, setGoalkeepers] = useState(gk);
-  const [selectedMidfielders, setMidfielders] = useState(m);
-  const [selectedDefenders, setDefenders] = useState(d);
-  const [selectedForwards, setForwards] = useState(f);
+  const [unavailable, setUnavailable] = useState([]);
+  const [selectedGoalkeepers, setGoalkeepers] = useState([]);
+  const [selectedMidfielders, setMidfielders] = useState([]);
+  const [selectedDefenders, setDefenders] = useState([]);
+  const [selectedForwards, setForwards] = useState([]);
+
+  useEffect(() => {
+    const gk = localStorage.getItem("gk")
+      ? JSON.parse(localStorage.getItem("gk"))
+      : [];
+    const d = localStorage.getItem("d")
+      ? JSON.parse(localStorage.getItem("d"))
+      : [];
+    const m = localStorage.getItem("m")
+      ? JSON.parse(localStorage.getItem("m"))
+      : [];
+    const f = localStorage.getItem("f")
+      ? JSON.parse(localStorage.getItem("f"))
+      : [];
+    const initialUnavailable = localStorage.getItem("unavailable")
+      ? JSON.parse(localStorage.getItem("unavailable"))
+      : [];
+
+
+    setGoalkeepers(gk);
+    setMidfielders(m);
+    setDefenders(d);
+    setForwards(f);
+    setUnavailable(initialUnavailable);
+
+  }, [])
 
   useEffect(() => {
     const result = {};
@@ -45,22 +64,22 @@ export const Draft = memo(({ players, draft, onPlayerSelected }) => {
       if (positionId === 1 && !selectedGoalkeepers.includes(playerId)) {
         result = [...selectedGoalkeepers, playerId];
         setGoalkeepers(result);
-        gk = result;
+        localStorage.setItem('gk', JSON.stringify(result));
       }
       if (positionId === 2 && !selectedDefenders.includes(playerId)) {
         result = [...selectedDefenders, playerId];
         setDefenders(result);
-        d = result;
+        localStorage.setItem('d', JSON.stringify(result));
       }
       if (positionId === 3 && !selectedMidfielders.includes(playerId)) {
         result = [...selectedMidfielders, playerId];
         setMidfielders(result);
-        m = result;
+        localStorage.setItem('m', JSON.stringify(result));
       }
       if (positionId === 4 && !selectedForwards.includes(playerId)) {
         result = [...selectedForwards, playerId];
         setForwards(result);
-        f = result;
+        localStorage.setItem('f', JSON.stringify(result));
       }
     },
     [
@@ -90,7 +109,7 @@ export const Draft = memo(({ players, draft, onPlayerSelected }) => {
       const result = [...unavailable, playerId];
 
       setUnavailable(result);
-      initialunavailable = result;
+      localStorage.setItem('unavailable', JSON.stringify(result));
     },
     [unavailable]
   );
@@ -100,7 +119,7 @@ export const Draft = memo(({ players, draft, onPlayerSelected }) => {
       const result = unavailable.filter((id) => id !== playerId);
 
       setUnavailable(result);
-      initialunavailable = result;
+      localStorage.setItem('unavailable', JSON.stringify(result));
     },
     [unavailable]
   );
@@ -111,22 +130,22 @@ export const Draft = memo(({ players, draft, onPlayerSelected }) => {
       if (positionId === 1) {
         result = selectedGoalkeepers.filter((id) => id !== playerId);
         setGoalkeepers(result);
-        gk = result;
+        localStorage.setItem('gk', JSON.stringify(result));
       }
       if (positionId === 2) {
         result = selectedDefenders.filter((id) => id !== playerId);
         setDefenders(result);
-        d = result;
+        localStorage.setItem('d', JSON.stringify(result));
       }
       if (positionId === 3) {
         result = selectedMidfielders.filter((id) => id !== playerId);
         setMidfielders(result);
-        m = result;
+        localStorage.setItem('m', JSON.stringify(result));
       }
       if (positionId === 4) {
         result = selectedForwards.filter((id) => id !== playerId);
         setForwards(result);
-        f = result;
+        localStorage.setItem('f', JSON.stringify(result));
       }
     },
     [
