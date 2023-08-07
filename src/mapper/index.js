@@ -1,6 +1,6 @@
 import { v4 } from "uuid";
-import { players } from "../data/players";
-import { teams } from "../data/teams";
+import { players } from "../data_2023/players";
+import { teams } from "../data_2023/teams";
 import { positions, POSITIONS_LIST } from "../constants";
 
 const getShortTitlePositionById = (positionId) =>
